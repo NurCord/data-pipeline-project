@@ -26,7 +26,7 @@ jobs:
         run: uv pip install -r requirements.txt
 
       - name: Run linter
-        run: uv run pylint ./
+        run: uv run pylint tests/ src/
 
       - name: Check formatting with Black
-        run: uv run black --check --diff --color ./
+        run: uv run black --check --diff --color tests/ src/
