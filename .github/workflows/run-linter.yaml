@@ -1,0 +1,29 @@
+name: Python application linter
+
+on: [pull_request]
+
+jobs:
+  run-linter:
+    name: Run Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Create uv virtual environment
+        run: uv venv
+
+      - name: Install project dependencies
+        run: uv pip install -r requirements.txt
+
+      - name: Run linter
+        run: uv run pylint tests/ src/

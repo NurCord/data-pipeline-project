@@ -1,9 +1,14 @@
-import src.class_4_testing as weather_module
+"""This module testing functions to fetch weather data from the weather.gov API."""
 from unittest.mock import patch, Mock, MagicMock
+
 import pytest
 import requests
 
+import src.class_4_testing as weather_module
+
+
 def test_get_weather():
+    """Ensure get_weather returns the forecastHourly data from the API."""
     lat = 38.8894
     long = -77.0352
     expected_response = 'expected_forecast_data'
@@ -15,9 +20,11 @@ def test_get_weather():
     weather_module.requests.get = Mock(return_value=mock_response)
     response = weather_module.get_weather(lat, long)
     assert response == expected_response, f"Expected {expected_response}, but got {response}"
-    
+
+
 @patch("src.class_4_testing.requests.get")
 def test_get_weather_api_call(mock_get):
+    """Patch requests.get and verify get_weather returns expected data."""
     lat = 38.8894
     long = -77.0352
     expected_response = 'expected_forecast_data'
@@ -31,6 +38,7 @@ def test_get_weather_api_call(mock_get):
 
 
 def test_get_weather_invalid_lat():
+    """Verify ValueError is raised for invalid latitude."""
     invalid_lat = "invalid_lat"
     long = -77.0352
 
@@ -39,7 +47,9 @@ def test_get_weather_invalid_lat():
 
     assert str(exc_info.value) == "Latitude and Longitude must be numeric values."
 
+
 def test_get_weather_invalid_long():
+    """Verify ValueError is raised for invalid longitude."""
     invalid_lat = 38.8894
     long = "invalid_long"
 
@@ -48,8 +58,10 @@ def test_get_weather_invalid_long():
 
     assert str(exc_info.value) == "Latitude and Longitude must be numeric values."
 
+
 @patch("src.class_4_testing.requests.get")
 def test_get_weather_api_call_error(mock_get):
+    """Simulate API error and ensure RequestException is raised with proper message."""
     lat = 38.8894
     long = -77.0352
     mock_get.side_effect = requests.RequestException("API error simulated")

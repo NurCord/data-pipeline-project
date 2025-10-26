@@ -7,6 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "mock>=5.2.0",
     "pandas>=2.3.3",
+    "pylint>=4.0.2",
     "pytest>=8.4.2",
     "requests>=2.32.5",
 ]
