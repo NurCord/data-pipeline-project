@@ -1,4 +1,5 @@
 """This module provides functions to fetch weather data from the weather.gov API."""
+
 import requests
 
 
@@ -26,6 +27,6 @@ def get_weather(lat, long):
         base_url = "https://api.weather.gov/points/"
         response = requests.get(f"{base_url}{lat},{long}", timeout=60)
         data = response.json()
-        return data['properties']['forecastHourly']
+        return data["properties"]["forecastHourly"]
     except requests.RequestException as exc:
         raise requests.RequestException("Error fetching weather data") from exc

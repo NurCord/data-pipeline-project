@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      
+      - name: Set up Black
+        uses: psf/black@stable
 
       - name: Set up Python
         uses: actions/setup-python@v2
