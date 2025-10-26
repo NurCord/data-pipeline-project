@@ -1,4 +1,5 @@
 """This module testing functions to fetch weather data from the weather.gov API."""
+
 from unittest.mock import patch, Mock, MagicMock
 
 import pytest
@@ -11,15 +12,17 @@ def test_get_weather():
     """Ensure get_weather returns the forecastHourly data from the API."""
     lat = 38.8894
     long = -77.0352
-    expected_response = 'expected_forecast_data'
+    expected_response = "expected_forecast_data"
 
     mock_response = MagicMock()
     mock_response.json.return_value = {
-        'properties': {'forecastHourly': expected_response}
+        "properties": {"forecastHourly": expected_response}
     }
     weather_module.requests.get = Mock(return_value=mock_response)
     response = weather_module.get_weather(lat, long)
-    assert response == expected_response, f"Expected {expected_response}, but got {response}"
+    assert (
+        response == expected_response
+    ), f"Expected {expected_response}, but got {response}"
 
 
 @patch("src.class_4_testing.requests.get")
@@ -27,14 +30,16 @@ def test_get_weather_api_call(mock_get):
     """Patch requests.get and verify get_weather returns expected data."""
     lat = 38.8894
     long = -77.0352
-    expected_response = 'expected_forecast_data'
+    expected_response = "expected_forecast_data"
 
     mock_get.return_value.json.return_value = {
-        'properties': {'forecastHourly': expected_response}
+        "properties": {"forecastHourly": expected_response}
     }
 
     response = weather_module.get_weather(lat, long)
-    assert response == expected_response, f"Expected {expected_response}, but got {response}"
+    assert (
+        response == expected_response
+    ), f"Expected {expected_response}, but got {response}"
 
 
 def test_get_weather_invalid_lat():

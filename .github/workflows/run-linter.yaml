@@ -27,3 +27,6 @@ jobs:
 
       - name: Run linter
         run: uv run pylint tests/ src/
+
+      - name: Check formatting with Black
+        run: uv run black --check --diff --color tests/ src/
