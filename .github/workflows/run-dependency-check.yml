@@ -1,0 +1,33 @@
+name: Python Dependencies Check
+
+on: [pull_request]
+
+jobs:
+  run-dependency-check:
+    name: Run Dependencies Check
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        version: ['3.6', '3.7', '3.8', '3.9']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Create uv virtual environment
+        run: uv venv
+
+      - name: Install project dependencies
+        run: uv pip install -r requirements.txt
+
+      - name: Run dependency check
+        run: uv run pip check
